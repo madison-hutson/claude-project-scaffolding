@@ -1,0 +1,35 @@
+# Claude Code context optimization
+# Excludes high-token, low-value files from context
+
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+build/
+.next/
+.nuxt/
+out/
+
+# Lockfiles (large, rarely useful for context)
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+
+# Test outputs
+coverage/
+test-results/
+playwright-report/
+
+# Minified files
+*.min.js
+*.min.css
+
+# Git internals
+.git/
+
+# Cache
+.cache/
+.parcel-cache/
+.eslintcache
+*.tsbuildinfo
