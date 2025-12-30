@@ -25,7 +25,7 @@ Return here after bootstrap is complete.
 | # | Rule | Reference |
 |---|------|-----------|
 | 4 | **NEVER** ship refactors without diffing every endpoint/function against original | `docs/LESSONS-LEARNED.md` |
-| 5 | **NEVER** exceed 300 lines per file - split proactively at 250 | `docs/CONTRIBUTING.md#file-limits` |
+| 5 | **NEVER** exceed 300 lines per file - splits must improve architecture, not just move code | `docs/CONTRIBUTING.md#splits-must-improve-architecture` |
 | 6 | **NEVER** bypass data source rules defined in architecture | `docs/ARCHITECTURE.md#data-sources` |
 | 7 | **NEVER** widen test assertions to make failing tests pass - fix inputs or code instead | `docs/LESSONS-LEARNED.md` |
 
@@ -56,7 +56,7 @@ When instructions conflict, higher authority wins:
 |-----------|-------------------|
 | Tests fail | Diagnose root cause before changing any code |
 | Inventory drift | Update inventory file, never delete the test |
-| File exceeds 300 lines | Split the file, never override the limit |
+| File exceeds 300 lines | Split with architectural improvement, document tech debt if workaround |
 | Pre-commit hook fails | Fix the issue, never bypass with `--no-verify` |
 | CI fails | Fix locally, never modify CI to skip checks |
 
@@ -69,6 +69,7 @@ When instructions conflict, higher authority wins:
 - **Do NOT** remove or skip tests to fix failures
 - **Do NOT** widen expected values (e.g., adding status codes) to make tests pass
 - **Do NOT** inline logic to avoid file splits
+- **Do NOT** extract code just to hit line limits without improving architecture (metric gaming)
 - **Do NOT** modify CI config to bypass checks
 - **Do NOT** delete inventory entries to pass drift detection
 - **Do NOT** use `any` types to silence TypeScript errors

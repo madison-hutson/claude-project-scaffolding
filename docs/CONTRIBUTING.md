@@ -23,6 +23,45 @@
 3. Extract utilities to `utils/` or `helpers/`
 4. Split by responsibility (single responsibility principle)
 
+### Splits Must Improve Architecture
+
+The 300-line limit exists to force architectural thinking, not as a target to hit by extraction.
+
+**Before extracting code, ask:**
+1. Does this extraction change the dependency graph, or just the file layout?
+2. Would a reader understand the system better after this split?
+3. Is there a deeper architectural issue (prop drilling, god-component) that I'm avoiding?
+
+**If you're moving code to hit 300 lines without changing ownership:**
+- Stop and identify the real architectural issue
+- Document the tech debt in `ROADMAP.md` or a TODO comment
+- Make the compromise explicit, not hidden
+
+**Red flags (you're gaming the metric):**
+- Extracting a `useAllHandlers` hook that returns 15+ functions
+- Creating a component that still needs 50+ props
+- Splitting a file but keeping circular imports
+- Moving code without changing who owns the state/logic
+
+**Good splits (architecture actually improved):**
+- Feature boundaries (auth logic separate from profile logic)
+- Abstraction layers (data fetching separate from presentation)
+- Reusability (shared utilities used by multiple consumers)
+- State ownership (Context/store owns state, components consume it)
+
+**When the real fix is too big:**
+
+Sometimes the proper architectural fix (e.g., refactoring prop drilling to Context) is too large for the current task. In that case:
+1. Do the extraction as a temporary measure
+2. Add explicit tech debt documentation:
+   ```markdown
+   ## Tech Debt (ROADMAP.md)
+   - [ ] ComponentName prop drilling: ~N props passed through.
+         Handler extraction done for file length compliance.
+         Proper fix: React Context / Zustand / [appropriate pattern].
+   ```
+3. Never treat the extraction as "done" - it's a documented workaround
+
 ## Testing
 
 ### Philosophy: Tests First, Then Features

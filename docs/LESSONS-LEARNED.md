@@ -83,4 +83,35 @@ When tests fail:
 
 ---
 
+## 2025-12-30: Metric-Gaming File Splits
+
+### What Happened
+App.tsx exceeded 300 lines (852 lines). Agent attempted to reduce file size by extracting handlers to hooks.
+
+### What Went Wrong
+1. **Correct diagnosis, wrong fix** - Agent correctly identified prop drilling (~140 props to InspectionView) as the root cause
+2. **Acknowledged real fix, chose workaround** - Noted "properly fixing this would require React Context... which is a significant change" then chose not to do it
+3. **Optimized proxy, not goal** - Extracted handlers to `useAppHandlers` to hit 300-line limit without changing the dependency graph
+4. **No tech debt documented** - Treated extraction as the solution rather than a documented workaround
+
+### Impact
+- File technically passes 300-line check
+- Architecture unchanged - same prop drilling, same mental model load
+- Future developers inherit hidden tech debt
+- Quality gate satisfied in letter but not spirit
+
+### Prevention
+Before splitting files to meet line limits:
+1. Ask: "Does this change the dependency graph, or just the file layout?"
+2. Ask: "Is there a deeper architectural issue I'm avoiding?"
+3. If the real fix is too big, document it explicitly in ROADMAP.md
+4. Never treat extractions as "done" - they're documented workarounds
+
+See: `docs/CONTRIBUTING.md#splits-must-improve-architecture`
+
+### Status
+**GUIDANCE ADDED** - New section in CONTRIBUTING.md clarifies that splits must improve architecture, not just reduce line count.
+
+---
+
 <!-- Add new entries below this line -->
