@@ -15,7 +15,7 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "typecheck": "tsc --noEmit",
-    "check:file-length": "node scripts/check-file-length.js",
+    "check:file-length": "node scripts/check-file-length.cjs",
     "precommit": "npm run typecheck && npm run lint && npm run check:file-length && npm test",
     "prepare": "husky"
   },
