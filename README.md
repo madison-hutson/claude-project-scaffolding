@@ -6,8 +6,9 @@
 
 1. Click **"Use this template"** → **"Create a new repository"**
 2. Clone your new repo
-3. Open with Claude Code
-4. Claude reads `CLAUDE.md` and bootstraps your project
+3. Run `npm install` to install dependencies
+4. Run `npm run precommit` to verify everything works
+5. Open with Claude Code - it reads `CLAUDE.md` and continues setup
 
 ## What's Included
 
@@ -27,8 +28,19 @@
     └── TASKS.md        ← Session-based task tracking
 ```
 
+### Claude Code Configuration
+```
+├── .claude/
+│   └── settings.local.json    ← Claude Code local settings (gitignored in real projects)
+```
+
 ### Quality Infrastructure
 ```
+├── package.json               ← npm scripts pre-configured
+├── .husky/
+│   └── pre-commit             ← Blocks commits that fail checks
+├── .github/
+│   └── workflows/ci.yml       ← GitHub Actions CI pipeline
 ├── scripts/
 │   └── check-file-length.js   ← Enforces 300-line limit
 ├── tests/
@@ -36,13 +48,23 @@
 │   ├── component-inventory.json   ← Component drift detection
 │   ├── inventory.test.ts          ← Drift detection tests
 │   └── e2e/                       ← E2E tests (web apps)
-├── tsconfig.json          ← Strict TypeScript
-├── eslint.config.js       ← Linting rules
-├── .prettierrc            ← Formatting rules
-├── vitest.config.ts       ← Unit test config
-├── playwright.config.ts   ← E2E test config (web apps)
-└── .gitignore             ← Standard ignores
+└── [Config files]
+    ├── tsconfig.json          ← Strict TypeScript
+    ├── eslint.config.js       ← Linting rules
+    ├── .prettierrc            ← Formatting rules
+    ├── vitest.config.ts       ← Unit test config
+    ├── playwright.config.ts   ← E2E test config (web apps)
+    └── .gitignore             ← Standard ignores
 ```
+
+### Enforcement
+
+| Where | What | When |
+|-------|------|------|
+| **Local** | Pre-commit hooks (`.husky/`) | Before each commit |
+| **Remote** | GitHub Actions (`.github/workflows/`) | On push and PR |
+
+Bad code is blocked at both levels.
 
 ## Bootstrap Order
 
