@@ -1,0 +1,14 @@
+{
+  "$schema": "./inventory.schema.json",
+  "_comment": "This file tracks all components. Tests will FAIL if components exist in code but not here.",
+  "components": [
+    {
+      "name": "App",
+      "path": "src/App.tsx",
+      "description": "Root application component",
+      "addedIn": "0.1.0"
+    }
+  ],
+  "lastUpdated": "[DATE]",
+  "totalComponents": 1
+}

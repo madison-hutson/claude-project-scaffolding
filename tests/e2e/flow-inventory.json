@@ -1,0 +1,14 @@
+{
+  "$schema": "../inventory.schema.json",
+  "_comment": "This file tracks all E2E test flows. Tests will FAIL if flows exist in code but not here.",
+  "flows": [
+    {
+      "name": "health-check",
+      "file": "health.spec.ts",
+      "description": "Basic application health and accessibility",
+      "addedIn": "0.1.0"
+    }
+  ],
+  "lastUpdated": "[DATE]",
+  "totalFlows": 1
+}

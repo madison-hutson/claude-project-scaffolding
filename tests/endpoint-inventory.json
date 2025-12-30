@@ -1,0 +1,14 @@
+{
+  "$schema": "./inventory.schema.json",
+  "_comment": "This file tracks all API endpoints. Tests will FAIL if endpoints exist in code but not here.",
+  "endpoints": [
+    {
+      "method": "GET",
+      "path": "/api/health",
+      "description": "Health check endpoint",
+      "addedIn": "0.1.0"
+    }
+  ],
+  "lastUpdated": "[DATE]",
+  "totalEndpoints": 1
+}

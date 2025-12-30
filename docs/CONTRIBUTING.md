@@ -1,0 +1,195 @@
+# Contributing Guidelines
+
+## File Limits
+
+### Hard Limit: 300 Lines
+- **No file may exceed 300 lines**
+- Start planning splits at 250 lines
+- Check line count DURING development, not after
+- This applies to ALL languages (TypeScript, Python, Rust, Go, etc.)
+
+### Ideal Sizes
+| Type | Target | Max |
+|------|--------|-----|
+| Module/Component | <150 lines | 200 lines |
+| Utility/Helper | <100 lines | 150 lines |
+| Route/Handler | <200 lines | 300 lines |
+| Config file | <100 lines | 150 lines |
+| Test file | <200 lines | 300 lines |
+
+### How to Split
+1. Extract sub-modules/components to separate files
+2. Move types/interfaces to dedicated `types/` directory
+3. Extract utilities to `utils/` or `helpers/`
+4. Split by responsibility (single responsibility principle)
+
+## Testing
+
+### Philosophy: Tests First, Then Features
+
+```
+┌─────────────────────────────────────────┐
+│ 1. Quality infrastructure exists        │
+│ 2. Tests exist for the feature          │
+│ 3. THEN implement the feature           │
+│ 4. Tests pass before declaring done     │
+└─────────────────────────────────────────┘
+```
+
+### Test Categories
+
+| Category | Purpose | When to Write |
+|----------|---------|---------------|
+| Unit tests | Test individual functions | Every function with logic |
+| Integration tests | Test components together | API endpoints, DB operations |
+| E2E tests | Test full user flows | Web apps only |
+| Drift detection | Catch missing inventory entries | Automatically maintained |
+
+### Running Tests
+
+```bash
+# Adapt commands to your language/framework
+npm test              # or: pytest, cargo test, go test
+npm run test:watch    # Watch mode
+npm run test:e2e      # E2E tests (web apps)
+npm run test:coverage # Coverage report
+```
+
+### Inventory-Based Drift Detection
+
+Inventory files track what exists in your codebase. Tests FAIL if code doesn't match.
+
+| Inventory File | Tracks | Update When |
+|----------------|--------|-------------|
+| `endpoint-inventory.json` | API routes | Add/remove endpoint |
+| `component-inventory.json` | UI components | Add/remove component |
+| `module-inventory.json` | Core modules | Add/remove module |
+
+**Why?** Prevents "I added a feature but forgot to test/document it."
+
+### Quality Check Scripts
+
+```bash
+# Run ALL checks before committing
+npm run precommit
+
+# Individual checks
+npm run typecheck        # Type errors
+npm run lint             # Code style
+npm run check:file-length # File size limit
+npm test                 # Tests
+```
+
+## Code Style
+
+### General Principles (All Languages)
+
+1. **Explicit over implicit** - Name things clearly
+2. **Single responsibility** - One function does one thing
+3. **No magic numbers** - Use named constants
+4. **Handle errors explicitly** - No silent failures
+5. **Type everything** - Use strict typing
+
+### File Organization Template
+
+```
+[File description/docstring]
+
+[Imports - external first, then internal]
+
+[Constants/Configuration]
+
+[Types/Interfaces (if not in separate file)]
+
+[Main implementation]
+
+[Exports (if applicable)]
+```
+
+### Naming Conventions
+
+| Thing | Convention | Example |
+|-------|------------|---------|
+| Files | kebab-case or snake_case | `user-service.ts`, `user_service.py` |
+| Classes | PascalCase | `UserService` |
+| Functions | camelCase or snake_case | `getUser()`, `get_user()` |
+| Constants | SCREAMING_SNAKE_CASE | `MAX_RETRIES` |
+| Types/Interfaces | PascalCase | `UserData`, `ConfigOptions` |
+
+## Documentation Updates
+
+After ANY code change:
+
+| File | Update When |
+|------|-------------|
+| `CHANGELOG.md` | Every feature, fix, or breaking change |
+| `tasks/TASKS.md` | Mark task complete or add new tasks |
+| `docs/ARCHITECTURE.md` | Structure changes, new data sources |
+| `docs/LESSONS-LEARNED.md` | Made a mistake worth documenting |
+| Inventory files | Added/removed endpoint/component/module |
+
+## Git Workflow
+
+### Commit Message Format
+
+```
+type: Short description (imperative mood)
+
+[Optional longer explanation]
+
+[Generated with Claude Code](https://claude.com/claude-code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+```
+
+### Commit Types
+
+| Type | Use For |
+|------|---------|
+| `feat` | New feature |
+| `fix` | Bug fix |
+| `docs` | Documentation only |
+| `refactor` | Code change that doesn't add feature or fix bug |
+| `test` | Adding or updating tests |
+| `chore` | Maintenance, dependencies, tooling |
+
+### Before Committing Checklist
+
+- [ ] Code works (manual verification)
+- [ ] `npm run precommit` passes (all quality gates)
+- [ ] Relevant tests added/updated
+- [ ] Documentation updated
+- [ ] No secrets in code (check `.env`, credentials)
+
+## Shared Patterns
+
+### Error Handling
+
+```
+1. Catch specific errors, not generic
+2. Log errors with context (what was being attempted)
+3. Return meaningful error messages to caller
+4. Don't swallow errors silently
+```
+
+### Configuration
+
+```
+1. All config in environment variables or config files
+2. No hardcoded URLs, credentials, or magic numbers
+3. Sensible defaults with override capability
+4. Document required vs optional config
+```
+
+### Logging
+
+```
+1. Log at appropriate levels (debug, info, warn, error)
+2. Include context (what, where, why)
+3. Don't log sensitive data (passwords, tokens, PII)
+4. Structured logging for production (JSON)
+```
+
+---
+
+*Last Updated: [Date]*
