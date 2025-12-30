@@ -60,7 +60,7 @@ git push -u origin main
 | 4 | **Add formatter** | Prettier / Black / rustfmt | `npm run format` works |
 | 5 | **Add test framework** | Vitest / Jest / pytest / equivalent | `npm test` works |
 | 6 | **Add pre-commit hooks** | Husky / pre-commit / git hooks | Bad commits blocked |
-| 7 | **Add file length checker** | `scripts/check-file-length.js` | Files < 300 lines |
+| 7 | **Add file length checker** | `scripts/check-file-length.cjs` | Files < 300 lines |
 | 8 | **Create inventory files** | Track endpoints/components/modules | Drift detection works |
 
 ### Step 3: Language-Specific Setup
@@ -156,6 +156,36 @@ Only for web apps with UI:
 | Add E2E framework | `npm i -D playwright @playwright/test` | Test user flows |
 | Add component inventory | `tests/component-inventory.json` | Track UI components |
 
+### Step 5: Enable CI Checks (After Adding Source Code)
+
+> **IMPORTANT:** The GitHub Actions CI workflow (`.github/workflows/ci.yml`) has some checks
+> commented out by default. This is intentional - a template with no source code can't pass
+> typecheck/lint/test. **You must enable them after adding your code.**
+
+Edit `.github/workflows/ci.yml` and uncomment these steps:
+
+```yaml
+# Uncomment these after adding source code:
+- name: Type check
+  run: npm run typecheck
+
+- name: Lint
+  run: npm run lint
+
+- name: Run tests
+  run: npm test
+```
+
+**When to enable each:**
+| Check | Enable When |
+|-------|-------------|
+| `typecheck` | After adding first `.ts` file |
+| `lint` | After adding first source file |
+| `test` | After adding first test |
+| `test:e2e` | After adding E2E tests (web apps) |
+
+**Local pre-commit hooks work immediately** - only CI needs this manual step.
+
 ### Required npm Scripts (Adapt for Your Language)
 
 ```json
@@ -170,7 +200,7 @@ Only for web apps with UI:
     "format": "[formatter] --write .",
     "format:check": "[formatter] --check .",
     "typecheck": "[type checker]",
-    "check:file-length": "node scripts/check-file-length.js",
+    "check:file-length": "node scripts/check-file-length.cjs",
     "precommit": "npm run typecheck && npm run lint && npm run check:file-length && npm test"
   }
 }
@@ -184,6 +214,7 @@ Only for web apps with UI:
 - [ ] GitHub repo URL: [URL]
 - [ ] All quality scripts working: Yes/No
 - [ ] Pre-commit hooks blocking bad commits: Yes/No
+- [ ] CI workflow checks enabled in `.github/workflows/ci.yml`: Yes/No
 - [ ] First "all checks pass" commit pushed: Yes/No
 
 ---
