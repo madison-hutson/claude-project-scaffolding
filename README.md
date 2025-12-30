@@ -2,6 +2,16 @@
 
 **A ready-to-use project template with quality gates built in.**
 
+## Problem This Solves
+
+LLM-assisted development fails by silently expanding scope, degrading quality, and losing architectural intent.
+
+This scaffold exists to make those failures **impossible without explicit acknowledgement**.
+
+It's not a productivity framework. It's damage control infrastructure - automated enforcement that catches drift before it ships.
+
+---
+
 ## Quick Start
 
 1. Click **"Use this template"** → **"Create a new repository"**
@@ -14,10 +24,11 @@
 
 ### Documentation Structure
 ```
-├── CLAUDE.md           ← Claude reads this FIRST (bootstrap instructions)
+├── CLAUDE.md           ← Claude reads this FIRST (rules + authority)
 ├── CHANGELOG.md        ← Version history
 ├── ROADMAP.md          ← Feature planning
 ├── docs/
+│   ├── BOOTSTRAP.md        ← First-session setup (one-time)
 │   ├── ARCHITECTURE.md     ← Project structure
 │   ├── CONTRIBUTING.md     ← Code standards
 │   ├── LESSONS-LEARNED.md  ← Mistake log (append-only)
@@ -68,7 +79,7 @@ Bad code is blocked at both levels.
 
 ## Bootstrap Order
 
-When Claude reads `CLAUDE.md`, it follows this order:
+First session only - see `docs/BOOTSTRAP.md` for full details:
 
 | Step | What | Why |
 |------|------|-----|
@@ -77,6 +88,7 @@ When Claude reads `CLAUDE.md`, it follows this order:
 | 2 | Core quality gates | Tests, lint, types, hooks |
 | 3 | Language-specific setup | TS/Python/Rust/Go |
 | 4 | Web-specific (if applicable) | E2E testing |
+| 5 | Enable CI checks | After adding source code |
 
 ## Supported Project Types
 
