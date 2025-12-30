@@ -19,22 +19,22 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm'
 
       - name: Install dependencies
-        run: npm ci
-
-      - name: Type check
-        run: npm run typecheck
-
-      - name: Lint
-        run: npm run lint
+        run: npm install
 
       - name: Check file lengths
         run: npm run check:file-length
 
-      - name: Run tests
-        run: npm test
+      # Uncomment these after adding source code:
+      # - name: Type check
+      #   run: npm run typecheck
+      #
+      # - name: Lint
+      #   run: npm run lint
+      #
+      # - name: Run tests
+      #   run: npm test
 
   # Uncomment for web apps with E2E tests
   # e2e:
