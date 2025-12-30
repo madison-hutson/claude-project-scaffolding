@@ -56,4 +56,31 @@ Before declaring ANY migration complete:
 
 ---
 
+## 2025-12-30: Test Assertion Widening
+
+### What Happened
+API tests failed because test inputs didn't match validation rules.
+
+### What Went Wrong
+1. **Root cause misdiagnosed** - Correctly identified that test inputs were invalid
+2. **Wrong fix applied** - Instead of fixing test inputs to use valid format, assertions were widened to accept the error response (400) alongside success responses
+3. **Tests became meaningless** - Assertions that accept almost any status code verify nothing
+
+### Impact
+- Tests passed but no longer validated correct behavior
+- False confidence in code correctness
+- Bug escaped to next development phase
+
+### Prevention
+When tests fail:
+1. **Never** widen assertions to accept failure responses
+2. **Fix the test input** if the input is invalid
+3. **Fix the code** if the input should be valid but fails
+4. Ask: "Would this assertion catch a real bug?" - if no, the fix is wrong
+
+### Status
+**FIXED** - Reverted assertion changes, used valid test inputs.
+
+---
+
 <!-- Add new entries below this line -->

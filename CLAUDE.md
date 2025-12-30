@@ -12,7 +12,7 @@ Return here after bootstrap is complete.
 
 ---
 
-## The 10 Rules
+## The 11 Rules
 
 ### Context Management
 | # | Rule | Reference |
@@ -27,14 +27,15 @@ Return here after bootstrap is complete.
 | 4 | **NEVER** ship refactors without diffing every endpoint/function against original | `docs/LESSONS-LEARNED.md` |
 | 5 | **NEVER** exceed 300 lines per file - split proactively at 250 | `docs/CONTRIBUTING.md#file-limits` |
 | 6 | **NEVER** bypass data source rules defined in architecture | `docs/ARCHITECTURE.md#data-sources` |
+| 7 | **NEVER** widen test assertions to make failing tests pass - fix inputs or code instead | `docs/LESSONS-LEARNED.md` |
 
 ### Always Do
 | # | Rule | Reference |
 |---|------|-----------|
-| 7 | **ALWAYS** run full test suite before declaring work complete | `docs/CONTRIBUTING.md#testing` |
-| 8 | **ALWAYS** update CHANGELOG.md + tasks/TASKS.md after code changes | - |
-| 9 | **ALWAYS** use shared utilities for common behaviors | `docs/CONTRIBUTING.md#shared-patterns` |
-| 10 | **ALWAYS** verify dates are current year before writing timestamps | - |
+| 8 | **ALWAYS** run full test suite before declaring work complete | `docs/CONTRIBUTING.md#testing` |
+| 9 | **ALWAYS** update CHANGELOG.md + tasks/TASKS.md after code changes | - |
+| 10 | **ALWAYS** use shared utilities for common behaviors | `docs/CONTRIBUTING.md#shared-patterns` |
+| 11 | **ALWAYS** verify dates are current year before writing timestamps | - |
 
 ---
 
@@ -66,6 +67,7 @@ When instructions conflict, higher authority wins:
 ## Anti-Patterns (Explicit Prohibitions)
 
 - **Do NOT** remove or skip tests to fix failures
+- **Do NOT** widen expected values (e.g., adding status codes) to make tests pass
 - **Do NOT** inline logic to avoid file splits
 - **Do NOT** modify CI config to bypass checks
 - **Do NOT** delete inventory entries to pass drift detection
