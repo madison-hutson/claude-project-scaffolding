@@ -179,4 +179,34 @@ The checklist forces a pause between "tests pass" and "git commit" where documen
 
 ---
 
+## 2025-12-31: Multi-Server Port Configuration
+
+### What Happened
+Port conflicts between frontend (Vite), backend (Express), and OCR (Flask) caused API calls to return HTML instead of JSON.
+
+### The Architecture
+| Server | Port | Purpose |
+|--------|------|---------|
+| Backend | 3000 | API, DB, ERP |
+| Frontend | 5173 | Vite dev server |
+| OCR | 5001 | PaddleOCR |
+
+Frontend proxies `/api/*` to backend via `vite.config.ts`.
+
+### What Went Wrong
+1. **Port collision** - Multiple services attempted to use the same port
+2. **Confusing symptoms** - API calls returned HTML (wrong server responding)
+3. **No central documentation** - Port assignments weren't documented anywhere
+
+### Prevention
+1. Document all port assignments in `docs/ADMIN_GUIDE.md`
+2. Never use the same port for multiple services
+3. Vite proxy config is required for API calls in dev mode
+4. Add port validation to startup scripts if running multiple services
+
+### Status
+**DOCUMENTED** - Added port architecture table to guide future configuration.
+
+---
+
 <!-- Add new entries below this line -->
