@@ -60,7 +60,7 @@ git push -u origin main
 | 4 | **Add formatter** | Prettier / Black / rustfmt | `npm run format` works |
 | 5 | **Add test framework** | Vitest / Jest / pytest / equivalent | `npm test` works |
 | 6 | **Add pre-commit hooks** | Husky / pre-commit / git hooks | Bad commits blocked |
-| 7 | **Add file length checker** | `scripts/check-file-length.cjs` | Files < 300 lines |
+| 7 | **Add file length checker** | `scripts/check-file-length.js` | Files < 300 lines |
 | 8 | **Create inventory files** | Track endpoints/components/modules | Drift detection works |
 
 ---
@@ -208,7 +208,7 @@ Edit `.github/workflows/ci.yml` and uncomment these steps:
     "format": "[formatter] --write .",
     "format:check": "[formatter] --check .",
     "typecheck": "[type checker]",
-    "check:file-length": "node scripts/check-file-length.cjs",
+    "check:file-length": "node scripts/check-file-length.js",
     "precommit": "npm run typecheck && npm run lint && npm run check:file-length && npm test"
   }
 }

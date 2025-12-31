@@ -17,11 +17,31 @@
 | Config file | <100 lines | 150 lines |
 | Test file | <200 lines | 300 lines |
 
-### How to Split
+### How to Split Code
 1. Extract sub-modules/components to separate files
 2. Move types/interfaces to dedicated `types/` directory
 3. Extract utilities to `utils/` or `helpers/`
 4. Split by responsibility (single responsibility principle)
+
+### When to Split Documentation
+
+Documentation has different rules than code:
+
+| File | Threshold | How to Split |
+|------|-----------|--------------|
+| `CLAUDE.md` | **Never split** | Keep extremely short; only strict rules belong here |
+| `ARCHITECTURE.md` | > 400 lines | Split into overview + topic files (`docs/arch/*.md`) |
+| `CONTRIBUTING.md` | > 400 lines | Split into overview + detailed guides |
+| `BOOTSTRAP.md` | > 300 lines | Split by language/framework (`docs/bootstrap/*.md`) |
+| `INTEGRATIONS.md` | > 400 lines | Split by integration (`docs/integrations/*.md`) |
+| `USER_GUIDE.md` | > 500 lines | Split into chapters (`docs/guide/*.md`) |
+| `ADMIN_GUIDE.md` | > 400 lines | Split into chapters (`docs/admin/*.md`) |
+| `CHANGELOG.md` | Never split | Archive old versions to `docs/changelog-archive/` if needed |
+| `LESSONS-LEARNED.md` | Never split | Single searchable history is the point |
+| `TASKS.md` | Never split | Archive completed sessions periodically |
+| `ROADMAP.md` | Never split | Move completed items to `CHANGELOG.md` to manage size |
+
+**CLAUDE.md is special:** It must remain extremely concise. Only add new entries when establishing strict rules that apply to every session. Detailed explanations belong in other docs files, referenced from CLAUDE.md.
 
 ### Splits Must Improve Architecture
 
@@ -34,7 +54,7 @@ The 300-line limit exists to force architectural thinking, not as a target to hi
 
 **If you're moving code to hit 300 lines without changing ownership:**
 - Stop and identify the real architectural issue
-- Document the tech debt in `ROADMAP.md` or a TODO comment
+- Document the tech debt in `docs/ROADMAP.md` or a TODO comment
 - Make the compromise explicit, not hidden
 
 **Red flags (you're gaming the metric):**
@@ -55,7 +75,7 @@ Sometimes the proper architectural fix (e.g., refactoring prop drilling to Conte
 1. Do the extraction as a temporary measure
 2. Add explicit tech debt documentation:
    ```markdown
-   ## Tech Debt (ROADMAP.md)
+   ## Tech Debt (docs/ROADMAP.md)
    - [ ] ComponentName prop drilling: ~N props passed through.
          Handler extraction done for file length compliance.
          Proper fix: React Context / Zustand / [appropriate pattern].
@@ -161,8 +181,8 @@ After ANY code change:
 
 | File | Update When |
 |------|-------------|
-| `CHANGELOG.md` | Every feature, fix, or breaking change |
-| `tasks/TASKS.md` | Mark task complete or add new tasks |
+| `docs/CHANGELOG.md` | Every feature, fix, or breaking change |
+| `docs/TASKS.md` | Mark task complete or add new tasks |
 | `docs/ARCHITECTURE.md` | Structure changes, new data sources |
 | `docs/LESSONS-LEARNED.md` | Made a mistake worth documenting |
 | Inventory files | Added/removed endpoint/component/module |

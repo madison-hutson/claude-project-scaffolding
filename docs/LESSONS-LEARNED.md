@@ -104,13 +104,51 @@ App.tsx exceeded 300 lines (852 lines). Agent attempted to reduce file size by e
 Before splitting files to meet line limits:
 1. Ask: "Does this change the dependency graph, or just the file layout?"
 2. Ask: "Is there a deeper architectural issue I'm avoiding?"
-3. If the real fix is too big, document it explicitly in ROADMAP.md
+3. If the real fix is too big, document it explicitly in docs/ROADMAP.md
 4. Never treat extractions as "done" - they're documented workarounds
 
 See: `docs/CONTRIBUTING.md#splits-must-improve-architecture`
 
 ### Status
 **GUIDANCE ADDED** - New section in CONTRIBUTING.md clarifies that splits must improve architecture, not just reduce line count.
+
+---
+
+## 2025-12-31: Hardcoded Directory Whitelist in File Length Check
+
+### What Happened
+The 300-line file length checker was not catching violations in new subdirectories.
+
+### What Went Wrong
+1. **Whitelist design flaw** - Original script used a hardcoded `CHECK_DIRS` array listing specific directories to scan:
+   ```javascript
+   // BROKEN: Only checks these 4 directories
+   const CHECK_DIRS = ['src', 'server', 'tests', 'scripts'];
+   ```
+2. **New directories silently ignored** - When new directories were created (`components/`, `hooks/`, `contexts/`, `utils/`, etc.), they were never checked
+3. **False confidence** - Script reported "all files pass" while large files existed unchecked
+
+### Impact
+- Files exceeding 300 lines shipped to production
+- Quality gate appeared to work but was ineffective
+- Discovered only when manually reviewing code
+
+### Prevention
+File scanning tools should use **exclude-lists**, not **include-lists**:
+```javascript
+// CORRECT: Scan everything, exclude only known irrelevant paths
+const IGNORE_PATTERNS = ['node_modules', 'dist', '.git', ...];
+const files = walkDir(PROJECT_ROOT);  // Recursive from root
+```
+
+Never use:
+```javascript
+// WRONG: Whitelist requires manual updates for every new directory
+const CHECK_DIRS = ['src', 'server'];
+```
+
+### Status
+**FIXED** - Script rewritten to recursively walk from project root, using ignore patterns instead of directory whitelist.
 
 ---
 

@@ -25,8 +25,6 @@ It's not a productivity framework. It's damage control infrastructure - automate
 ### Documentation Structure
 ```
 ├── CLAUDE.md           ← Claude reads this FIRST (rules + authority)
-├── CHANGELOG.md        ← Version history
-├── ROADMAP.md          ← Feature planning
 ├── docs/
 │   ├── BOOTSTRAP.md        ← First-session setup (one-time)
 │   ├── ARCHITECTURE.md     ← Project structure
@@ -34,9 +32,10 @@ It's not a productivity framework. It's damage control infrastructure - automate
 │   ├── LESSONS-LEARNED.md  ← Mistake log (append-only)
 │   ├── INTEGRATIONS.md     ← External API reference
 │   ├── USER_GUIDE.md       ← End-user docs
-│   └── ADMIN_GUIDE.md      ← Deployment/config
-└── tasks/
-    └── TASKS.md        ← Session-based task tracking
+│   ├── ADMIN_GUIDE.md      ← Deployment/config
+│   ├── TASKS.md            ← Session-based task tracking
+│   ├── ROADMAP.md          ← Feature planning
+│   └── CHANGELOG.md        ← Version history
 ```
 
 ### Claude Code Configuration

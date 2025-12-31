@@ -33,7 +33,7 @@ Return here after bootstrap is complete.
 | # | Rule | Reference |
 |---|------|-----------|
 | 8 | **ALWAYS** run full test suite before declaring work complete | `docs/CONTRIBUTING.md#testing` |
-| 9 | **ALWAYS** update CHANGELOG.md + tasks/TASKS.md after code changes | - |
+| 9 | **ALWAYS** update docs/CHANGELOG.md + docs/TASKS.md after code changes | - |
 | 10 | **ALWAYS** use shared utilities for common behaviors | `docs/CONTRIBUTING.md#shared-patterns` |
 | 11 | **ALWAYS** verify dates are current year before writing timestamps | - |
 
@@ -141,6 +141,6 @@ npm test
 | `docs/INTEGRATIONS.md` | External API auth, troubleshooting | When working on external integrations |
 | `docs/USER_GUIDE.md` | End-user documentation | Reference for UI questions |
 | `docs/ADMIN_GUIDE.md` | Deployment, configuration | Setup/deployment tasks |
-| `CHANGELOG.md` | Version history | Session start |
-| `tasks/TASKS.md` | Current work tracking | Session start, after completing work |
-| `ROADMAP.md` | Planned features | When prioritizing work |
+| `docs/CHANGELOG.md` | Version history | Session start |
+| `docs/TASKS.md` | Current work tracking | Session start, after completing work |
+| `docs/ROADMAP.md` | Planned features | When prioritizing work |
