@@ -152,4 +152,31 @@ const CHECK_DIRS = ['src', 'server'];
 
 ---
 
+## 2025-12-31: Green Tests Trigger Documentation Skip
+
+### What Happened
+After a significant refactor, all tests passed. Claude moved immediately to commit without updating LESSONS-LEARNED or CHANGELOG.
+
+### What Went Wrong
+1. **Tunnel vision on green tests** - "All 21 tests passed" triggered a rush to commit
+2. **Documentation treated as cleanup** - Not seen as part of the work itself
+3. **User had to intervene** - Asked "Is all documentation updated?" before commit
+
+### Impact
+- Learnings from the session would have been lost
+- CHANGELOG would have been incomplete
+- Pattern would repeat in future sessions
+
+### Prevention
+1. Rule 9 strengthened to explicitly list docs to check BEFORE committing
+2. "Before Committing Checklist" in CONTRIBUTING.md now separates code quality from documentation
+3. Added warning: "Don't let green tests trigger a rush to commit"
+
+The checklist forces a pause between "tests pass" and "git commit" where documentation is explicitly verified.
+
+### Status
+**GUIDANCE ADDED** - Commit checklist now treats documentation as a blocking requirement, not optional cleanup.
+
+---
+
 <!-- Add new entries below this line -->

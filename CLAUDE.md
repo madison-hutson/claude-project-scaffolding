@@ -33,7 +33,7 @@ Return here after bootstrap is complete.
 | # | Rule | Reference |
 |---|------|-----------|
 | 8 | **ALWAYS** run full test suite before declaring work complete | `docs/CONTRIBUTING.md#testing` |
-| 9 | **ALWAYS** update docs/CHANGELOG.md + docs/TASKS.md after code changes | - |
+| 9 | **ALWAYS** update docs BEFORE committing: CHANGELOG, TASKS, LESSONS-LEARNED if applicable | `docs/CONTRIBUTING.md#before-committing` |
 | 10 | **ALWAYS** use shared utilities for common behaviors | `docs/CONTRIBUTING.md#shared-patterns` |
 | 11 | **ALWAYS** verify dates are current year before writing timestamps | - |
 

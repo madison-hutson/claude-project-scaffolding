@@ -214,11 +214,20 @@ Co-Authored-By: Claude <noreply@anthropic.com>
 
 ### Before Committing Checklist
 
+> **Warning:** Don't let green tests trigger a rush to commit. Documentation is part of the work, not cleanup.
+
+**Code Quality:**
 - [ ] Code works (manual verification)
 - [ ] `npm run precommit` passes (all quality gates)
 - [ ] Relevant tests added/updated
-- [ ] Documentation updated
 - [ ] No secrets in code (check `.env`, credentials)
+
+**Documentation (check BEFORE every commit):**
+- [ ] `docs/CHANGELOG.md` - Updated if user-facing change
+- [ ] `docs/TASKS.md` - Mark complete, add new tasks discovered
+- [ ] `docs/LESSONS-LEARNED.md` - Updated if you learned something worth preserving
+- [ ] `docs/ARCHITECTURE.md` - Updated if structure changed
+- [ ] Inventory files - Updated if endpoints/components added/removed
 
 ## Shared Patterns
 
