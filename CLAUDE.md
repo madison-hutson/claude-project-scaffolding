@@ -12,7 +12,7 @@ Return here after bootstrap is complete.
 
 ---
 
-## The 11 Rules
+## The 12 Rules
 
 ### Context Management
 | # | Rule | Reference |
@@ -36,6 +36,7 @@ Return here after bootstrap is complete.
 | 9 | **ALWAYS** update docs BEFORE committing: CHANGELOG, TASKS, LESSONS-LEARNED if applicable | `docs/CONTRIBUTING.md#before-committing` |
 | 10 | **ALWAYS** use shared utilities for common behaviors | `docs/CONTRIBUTING.md#shared-patterns` |
 | 11 | **ALWAYS** verify dates are current year before writing timestamps | - |
+| 12 | **CHECKPOINT** before new features - commit current work, suggest this if human doesn't | `docs/CONTRIBUTING.md#session-discipline` |
 
 ---
 

@@ -188,6 +188,33 @@ After ANY code change:
 | `docs/LESSONS-LEARNED.md` | Made a mistake worth documenting |
 | Inventory files | Added/removed endpoint/component/module |
 
+## Session Discipline
+
+### Checkpoint Before New Features
+
+When the user requests a new feature mid-session:
+
+1. **Ask:** "Should we commit the current changes first?"
+2. **If uncommitted changes span 5+ files:** Strongly recommend committing
+3. **If new feature is significant** (new modal, new API endpoint, new component): Start fresh with a commit
+
+### Red Flags That Require Checkpoint
+
+| Signal | Action |
+|--------|--------|
+| "Additionally...", "Also...", "One more thing..." | Pause and assess scope |
+| 5+ files modified without commit | Commit before continuing |
+| New feature requires new types/components/endpoints | Commit existing work first |
+| Session running > 30 minutes without commit | Suggest checkpoint |
+
+### Why This Matters
+
+Claude doesn't manage session scope. It will keep implementing until something breaks. A senior engineer would say: "That's a bigger change. Let me commit what I have first."
+
+**The rule:** One logical change = one commit. Don't stack uncommitted changes across unrelated features.
+
+---
+
 ## Git Workflow
 
 ### Commit Message Format

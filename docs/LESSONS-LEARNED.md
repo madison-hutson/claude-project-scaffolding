@@ -241,4 +241,54 @@ item.IsCurrent === true  // use source system's flag
 
 ---
 
+## 2025-12-31: Scope Creep Without Checkpoints
+
+### What Happened
+Session started with "fix approval sync bug" and expanded to:
+1. Fix approval sync bug ✅
+2. Auto-focus inspector field ✅
+3. Change Teaching Mode auth
+4. Build multi-panel golden promotion modal with preview
+
+10+ files modified, no commits, no documentation updates.
+
+### What Went Wrong
+1. **No checkpoint discipline** - Claude kept implementing without suggesting commits
+2. **"Additionally" cascade** - Each "one more thing" added scope without pausing
+3. **Major feature mid-session** - Golden promotion modal (500+ lines, 4-5 files) started at session end
+4. **No pushback** - Claude didn't say "that's a bigger change, let's commit first"
+
+### The Pattern
+| Session Start | Session End |
+|---------------|-------------|
+| "Fix this bug" | Bug fix + 3 features + architectural change |
+| 1 file | 10+ files |
+| Quick fix | 18k+ tokens of output |
+
+### Impact
+- If something breaks, unwinding is painful
+- No clear rollback point
+- Context lost if session dies
+- Tests haven't run since first fix
+
+### Prevention
+1. **Rule 12 added:** CHECKPOINT before new features
+2. **Session Discipline section** in CONTRIBUTING.md
+3. Claude should ask: "Should we commit current changes first?"
+4. Red flags: "Additionally", "Also", 5+ files modified, 30+ minutes without commit
+
+### What Should Have Happened
+```
+Session 1: Fix approval sync bug → commit
+Session 2: Auto-focus inspector field → commit
+Session 3: Change Teaching Mode auth → commit + TASKS
+Session 4: Design golden promotion → DECISIONS.md, TASKS
+Session 5: Implement golden promotion → commit + CHANGELOG
+```
+
+### Status
+**RULE ADDED** - Rule 12: Checkpoint before new features. Suggest commit if human doesn't.
+
+---
+
 <!-- Add new entries below this line -->
