@@ -38,91 +38,164 @@ This document captures significant technical decisions, the alternatives conside
 
 ---
 
-## Decisions
+## Scaffolding Decisions
 
-### State Management: [Your Choice]
+These document why the scaffolding works the way it does.
 
-**Date:** [DATE]
+---
+
+### File Length Limit: 300 Lines with Exclude-List Enforcement
+
+**Date:** 2025-12-30
 **Status:** Accepted
 
 #### Decision
-Use [Zustand/Redux/Context/etc.] for application state management.
+Enforce 300-line limit via recursive scan with exclude-list (`IGNORE_PATTERNS`), not include-list (`CHECK_DIRS`).
 
 #### Context
-[What state management needs exist in this project?]
+Need to prevent "god files" while ensuring new directories are automatically covered.
 
 #### Alternatives Considered
 | Option | Pros | Cons |
 |--------|------|------|
-| Redux Toolkit | Battle-tested, devtools, middleware | Boilerplate, learning curve |
-| React Context | Built-in, simple | Re-render issues at scale |
-| Zustand | Minimal API, no boilerplate | Less ecosystem |
-| Jotai/Recoil | Atomic updates, fine-grained | Newer, less documented |
+| No limit | No friction | God files emerge, unmaintainable |
+| 500-line limit | More permissive | Doesn't force architectural thinking |
+| Include-list (`CHECK_DIRS`) | Explicit control | New directories silently ignored |
+| **Exclude-list (chosen)** | Auto-covers new dirs | Must maintain ignore list |
 
 #### Rationale
-[Why this choice?]
+- 300 is small enough to force splits, large enough for real logic
+- Exclude-list automatically covers new directories (learned the hard way)
+- Forces modular architecture decisions, not just code extraction
 
 #### Trade-offs
-[What limitations do we accept?]
-
-#### Production Path
-[Would this change at scale? How?]
+- Some files feel artificially constrained
+- Splits can create indirection if done poorly
 
 ---
 
-### Database: [Your Choice]
+### LESSONS-LEARNED: Append-Only, Never Split
 
-**Date:** [DATE]
+**Date:** 2025-12-30
 **Status:** Accepted
 
 #### Decision
-Use [PostgreSQL/SQLite/MongoDB/etc.] for data persistence.
+LESSONS-LEARNED.md is append-only. Never edit existing entries, never split the file.
 
 #### Context
-[What data persistence needs exist?]
+Need to capture mistakes in a way that's searchable and preserves original context.
 
 #### Alternatives Considered
 | Option | Pros | Cons |
 |--------|------|------|
-| PostgreSQL | ACID, relational, scalable | Requires server |
-| SQLite | Zero config, embedded | Single writer, no network |
-| MongoDB | Flexible schema, horizontal scale | No joins, eventual consistency |
+| Wiki-style (edit/refine) | Entries improve over time | Original context lost |
+| Split by category | Organized | Defeats "searchable history" goal |
+| Split by year | Manageable size | Breaks continuity |
+| **Append-only (chosen)** | Single searchable history | File grows indefinitely |
 
 #### Rationale
-[Why this choice?]
+- Single searchable history is the point
+- Editing risks losing original context and nuance
+- "Never split" removes decision fatigue
 
 #### Trade-offs
-[What limitations do we accept?]
+- File grows indefinitely (acceptable for text)
+- Old entries may become irrelevant (but still valuable as history)
 
 ---
 
-### API Style: [Your Choice]
+### CLAUDE.md: Rules, Not Context
 
-**Date:** [DATE]
+**Date:** 2025-12-30
 **Status:** Accepted
 
 #### Decision
-Use [REST/GraphQL/tRPC/etc.] for client-server communication.
+CLAUDE.md contains strict rules only, not general context or documentation. Must remain extremely short.
 
 #### Context
-[What API needs exist?]
+Claude's attention is finite. Long documents get skimmed or ignored.
 
 #### Alternatives Considered
 | Option | Pros | Cons |
 |--------|------|------|
-| REST | Simple, cacheable, universal | Over/under-fetching |
-| GraphQL | Flexible queries, typed | Complexity, caching harder |
-| tRPC | End-to-end type safety | TypeScript-only, coupled |
+| Comprehensive context doc | One-stop-shop | Too long, gets ignored |
+| Combined rules + context | Convenient | Rules buried in prose |
+| **Rules only (chosen)** | Short, enforceable | Requires reading multiple files |
 
 #### Rationale
-[Why this choice?]
+- Claude ignores long documents; short rules are more likely followed
+- Detailed explanations belong in referenced files
+- Enforcement > documentation
 
 #### Trade-offs
-[What limitations do we accept?]
+- New users must read multiple files to get full context
+- Less "one-stop-shop" feel
 
 ---
 
-<!-- Add new decisions above this line -->
+### Quality Gates: Automated Enforcement, Not Advisory
+
+**Date:** 2025-12-30
+**Status:** Accepted
+
+#### Decision
+All quality rules are enforced via pre-commit hooks and CI, not just documented as guidelines.
+
+#### Context
+Documentation-only rules get ignored, especially by AI agents under time pressure.
+
+#### Alternatives Considered
+| Option | Pros | Cons |
+|--------|------|------|
+| Guidelines only | Flexible, no friction | Rules drift, get ignored |
+| CI-only enforcement | Catches on push | Late feedback, context switch |
+| **Pre-commit + CI (chosen)** | Immediate + backup | Requires setup |
+
+#### Rationale
+- "Green tests tunnel vision" - Claude rushes to commit when tests pass
+- Pre-commit catches issues immediately, before commit message is written
+- CI provides backup enforcement and visibility
+
+#### Trade-offs
+- Initial setup friction
+- Occasional false positives require investigation
+
+---
+
+### Inventory-Based Drift Detection
+
+**Date:** 2025-12-30
+**Status:** Accepted
+
+#### Decision
+Track components/endpoints in JSON inventory files. Tests fail if code doesn't match inventory.
+
+#### Context
+Need to catch "I added a feature but forgot to test/document it" scenarios.
+
+#### Alternatives Considered
+| Option | Pros | Cons |
+|--------|------|------|
+| Trust developers to update docs | No overhead | Drift happens silently |
+| Auto-generate from code | Always accurate | Loses intentionality, descriptions |
+| **Manual inventory + tests (chosen)** | Explicit, verified | Requires maintenance |
+
+#### Rationale
+- Forces explicit acknowledgment of new code
+- Descriptions capture intent, not just existence
+- Test failures are impossible to ignore
+
+#### Trade-offs
+- Manual updates required for every change
+- Count mismatches can be confusing (improved with type validation)
+
+---
+
+## Project Decisions
+
+<!-- Add your project-specific architectural decisions below -->
+
+---
 
 ## Superseded Decisions
 
