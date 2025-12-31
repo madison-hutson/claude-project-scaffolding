@@ -137,6 +137,7 @@ npm test
 | `docs/BOOTSTRAP.md` | First-session setup guide | New projects only |
 | `docs/MIGRATION.md` | Apply scaffold to existing project | Existing projects only |
 | `docs/ARCHITECTURE.md` | Project structure, data flow, API endpoints | Session start, before structural changes |
+| `docs/DECISIONS.md` | Why we chose X over Y (decision records) | Before proposing architectural changes |
 | `docs/CONTRIBUTING.md` | Code standards, file limits, testing, patterns | Before writing code |
 | `docs/LESSONS-LEARNED.md` | Historical mistakes (append-only) | Before any refactor/migration |
 | `docs/INTEGRATIONS.md` | External API auth, troubleshooting | When working on external integrations |

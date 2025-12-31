@@ -31,6 +31,7 @@ Documentation has different rules than code:
 |------|-----------|--------------|
 | `CLAUDE.md` | **Never split** | Keep extremely short; only strict rules belong here |
 | `ARCHITECTURE.md` | > 400 lines | Split into overview + topic files (`docs/arch/*.md`) |
+| `DECISIONS.md` | > 500 lines | Archive old decisions to `docs/decisions-archive/` |
 | `CONTRIBUTING.md` | > 400 lines | Split into overview + detailed guides |
 | `BOOTSTRAP.md` | > 300 lines | Split by language/framework (`docs/bootstrap/*.md`) |
 | `INTEGRATIONS.md` | > 400 lines | Split by integration (`docs/integrations/*.md`) |
