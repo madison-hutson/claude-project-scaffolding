@@ -29,6 +29,25 @@ describe('Endpoint Inventory', () => {
     }
   });
 
+  it('should have valid HTTP methods', () => {
+    const validMethods = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'];
+    for (const endpoint of inventory.endpoints) {
+      expect(
+        validMethods,
+        `Invalid HTTP method "${endpoint.method}" for ${endpoint.path}`
+      ).toContain(endpoint.method);
+    }
+  });
+
+  it('should have valid path format', () => {
+    for (const endpoint of inventory.endpoints) {
+      expect(
+        endpoint.path,
+        `Invalid path format for ${endpoint.method} ${endpoint.path}: must start with /`
+      ).toMatch(/^\//);
+    }
+  });
+
   it('should match endpoint count', () => {
     expect(inventory.endpoints.length).toBe(inventory.totalEndpoints);
   });

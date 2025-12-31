@@ -42,6 +42,15 @@ describe('Component Inventory', () => {
     }
   });
 
+  it('should have valid .tsx extension for all components', () => {
+    for (const component of inventory.components) {
+      expect(
+        component.path,
+        `Invalid extension for "${component.name}": expected .tsx, got ${path.extname(component.path)}\nComponents must be .tsx files (React + TypeScript)`
+      ).toMatch(/\.tsx$/);
+    }
+  });
+
   it('should have all .tsx components in inventory', async () => {
     // Find all component files
     const componentFiles = await glob('src/**/*.tsx', {
