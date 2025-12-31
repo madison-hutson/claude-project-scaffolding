@@ -209,4 +209,36 @@ Frontend proxies `/api/*` to backend via `vite.config.ts`.
 
 ---
 
+## 2025-12-31: Alphabetical Sort ≠ Version Sort
+
+### What Happened
+Revision filtering used `.sort().reverse()` to find "highest" revision.
+
+### The Bug
+Alphabetical sort fails for multi-character or numeric revisions:
+- `"9" > "10"` → **wrong** (alphabetically "9" comes after "1")
+- `"Z" > "AA"` → **wrong** (alphabetically "Z" comes after "A")
+- `"B" > "A"` → correct (but only by coincidence)
+
+```javascript
+// BROKEN
+revisions.sort().reverse()[0]  // "9" beats "10"
+
+// FIXED
+revisions.sort((a, b) => parseInt(a) - parseInt(b)).reverse()[0]  // numeric
+// OR
+item.IsCurrent === true  // use source system's flag
+```
+
+### Prevention
+1. Never use `.sort()` alone for versions/revisions
+2. Use explicit numeric or semantic version comparison
+3. Prefer source system flags (`IsCurrent`, `IsLatest`) over derived logic
+4. Test with edge cases: single vs double digits, letters vs letter pairs
+
+### Status
+**FIXED** - Use source system's `IsCurrent` flag instead of deriving from sort.
+
+---
+
 <!-- Add new entries below this line -->
