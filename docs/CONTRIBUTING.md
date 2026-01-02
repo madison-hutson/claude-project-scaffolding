@@ -193,12 +193,29 @@ After ANY code change:
 
 ## Session Discipline
 
+### Batch Size: 3, Then Checkpoint
+
+**More than 3 actions without verification = accumulating unjustified beliefs.**
+
+After every 3 significant actions (file edits, commands, etc.):
+1. Stop and verify reality matches your expectations
+2. Run tests or manual verification
+3. If something is off, investigate before continuing
+
+A checkpoint is verification that reality matches your model:
+- Run the test
+- Read the output
+- Write down what you found
+- Confirm it worked
+
+> TodoWrite is not a checkpoint. Thinking is not a checkpoint. Observable reality is the checkpoint.
+
 ### Checkpoint Before New Features
 
 When the user requests a new feature mid-session:
 
 1. **Ask:** "Should we commit the current changes first?"
-2. **If uncommitted changes span 5+ files:** Strongly recommend committing
+2. **If uncommitted changes span 3+ files:** Strongly recommend committing
 3. **If new feature is significant** (new modal, new API endpoint, new component): Start fresh with a commit
 
 ### Red Flags That Require Checkpoint
@@ -242,6 +259,23 @@ Co-Authored-By: Claude <noreply@anthropic.com>
 | `refactor` | Code change that doesn't add feature or fix bug |
 | `test` | Adding or updating tests |
 | `chore` | Maintenance, dependencies, tooling |
+
+### Staging Discipline
+
+**`git add .` is forbidden.** Add files individually. Know what you're committing.
+
+```bash
+# Wrong - blind staging
+git add .
+
+# Right - intentional staging
+git add src/feature.ts tests/feature.test.ts docs/CHANGELOG.md
+```
+
+Why:
+- Forces you to review what changed
+- Prevents accidental commits of debug code, `.env`, etc.
+- Creates a mental checkpoint before each commit
 
 ### Before Committing Checklist
 

@@ -58,6 +58,58 @@ If this fixes it: **still document what happened**. You don't have root cause, b
 
 ---
 
+## Prediction Protocol
+
+**Make beliefs pay rent in anticipated experiences.**
+
+Before every action that could fail, write out your prediction. After, compare to reality. This catches reasoning errors before they compound.
+
+### Before Action
+
+```
+DOING: [action you're about to take]
+EXPECT: [specific predicted outcome]
+IF YES: [what you'll conclude, next action]
+IF NO: [what you'll conclude, next action]
+```
+
+### After Action
+
+```
+RESULT: [what actually happened]
+MATCHES: [yes/no]
+THEREFORE: [conclusion and next action, or STOP if unexpected]
+```
+
+### Example
+
+```
+DOING: Adding PreCompact hook to inject reminder
+EXPECT: Reminder visible in context after compaction
+IF YES: Hook works, add to BOOTSTRAP.md
+IF NO: Hook timing is wrong, try different hook
+
+RESULT: Reminder was compacted away with everything else
+MATCHES: No
+THEREFORE: STOP. PreCompact fires BEFORE compaction. Need SessionStart instead.
+```
+
+### Why This Matters
+
+Without explicit predictions:
+- You're just running commands and hoping
+- Failures don't update your mental model
+- You repeat the same mistakes
+
+With predictions:
+- You catch yourself being wrong before it costs hours
+- Each failure teaches you something specific
+- Your reasoning is visible and reviewable
+
+> Skip this and you're flailing. Do this and you're debugging.
+
+---
+
 ## Quick Diagnosis Checklist
 
 Before diving deep, check these common causes:

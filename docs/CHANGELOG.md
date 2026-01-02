@@ -21,6 +21,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - **Before Committing Checklist:** Expanded to include all documentation files, organized by category (core, user-facing, technical, learning, planning)
 - **Rules 1 & 2:** Now explicitly trigger on compaction (re-read governance files after context compaction)
+- **Prediction Protocol:** DOING/EXPECT/RESULT pattern added to TROUBLESHOOTING.md
+- **Staging Discipline:** "git add . is forbidden" formalized in CONTRIBUTING.md
+- **Batch Size:** "3 actions, then checkpoint" - more aggressive verification cadence
+- **Completion Bias Warning:** Added to CLAUDE.md preamble
 
 ### Fixed
 <!-- List bug fixes -->
