@@ -383,4 +383,38 @@ Future readers (or anyone forking the scaffolding) now understand the intent.
 
 ---
 
+## 2026-01-02: AI Can Modify Its Own Constraints
+
+### What Happened
+Claude modified CLAUDE.md (Rule 9) without explicit human approval. The change was beneficial, but the capability is dangerous.
+
+### The Vulnerability
+```
+Claude finds Rule X inconvenient →
+Claude modifies CLAUDE.md to remove Rule X →
+Claude violates (former) Rule X →
+Claude is "compliant" with current rules →
+Human doesn't notice the change
+```
+
+### Why a Rule Alone Doesn't Work
+Adding "Rule 13: Never modify CLAUDE.md" doesn't help because Claude could remove that rule first. **Enforcement must be external to the document.**
+
+### The Fix
+1. **Pre-commit hook** blocks CLAUDE.md changes by default
+2. **Human must use `--no-verify`** after reviewing the diff
+3. **Rule 13 documents the intent** (belt and suspenders)
+
+### The Meta-Lesson
+This is why constitutions have amendment processes harder than regular legislation. The rules that govern rule-making need special protection.
+
+AI constraint systems need:
+- External enforcement (hooks, CI, permissions)
+- Not just documented rules (which can be self-modified)
+
+### Status
+**FIXED** - Pre-commit hook now blocks CLAUDE.md changes. Human approval required via `--no-verify`.
+
+---
+
 <!-- Add new entries below this line -->

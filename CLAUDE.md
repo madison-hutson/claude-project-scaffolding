@@ -12,7 +12,7 @@ Return here after bootstrap is complete.
 
 ---
 
-## The 12 Rules
+## The 13 Rules
 
 ### Context Management
 | # | Rule | Reference |
@@ -37,6 +37,11 @@ Return here after bootstrap is complete.
 | 10 | **ALWAYS** use shared utilities for common behaviors | `docs/CONTRIBUTING.md#shared-patterns` |
 | 11 | **ALWAYS** verify dates are current year before writing timestamps | - |
 | 12 | **CHECKPOINT** = `git commit` (not just TASKS.md) - commit before starting new features | `docs/CONTRIBUTING.md#session-discipline` |
+
+### Governance
+| # | Rule | Reference |
+|---|------|-----------|
+| 13 | **PROTECTED FILE** - CLAUDE.md changes require human approval (enforced by pre-commit hook) | `docs/LESSONS-LEARNED.md` |
 
 ---
 

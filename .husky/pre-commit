@@ -1,1 +1,18 @@
+# Protected file check - CLAUDE.md changes require human approval
+# This prevents AI from modifying its own constraints
+if git diff --cached --name-only | grep -q "^CLAUDE.md$"; then
+  echo ""
+  echo "⚠️  CLAUDE.md is a PROTECTED FILE"
+  echo ""
+  echo "Changes to CLAUDE.md require explicit human approval."
+  echo "This prevents AI from modifying its own constraints."
+  echo ""
+  echo "To approve this change:"
+  echo "  1. Review the diff: git diff --cached CLAUDE.md"
+  echo "  2. If approved: git commit --no-verify"
+  echo ""
+  exit 1
+fi
+
+# Run standard quality checks
 npm run precommit
