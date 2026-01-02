@@ -86,6 +86,36 @@ Updated regularly based on user feedback and business requirements.
 
 ## Future Considerations
 
+### PreCompact Hook for Post-Compaction Compliance (EXPERIMENTAL)
+
+**Status:** Under testing in separate project
+
+**Problem:** After context compaction, Claude re-reads code files but may not actively re-engage with governance rules. Facts survive compaction but behavioral discipline may drift.
+
+**Proposed Solution:** PreCompact hook that injects a reminder into the compaction process:
+
+```json
+{
+  "hooks": {
+    "PreCompact": [{
+      "matcher": "auto",
+      "hooks": [{
+        "type": "command",
+        "command": "echo 'IMPORTANT: After compaction, re-read CLAUDE.md and docs/CONTRIBUTING.md before continuing work.'"
+      }]
+    }]
+  }
+}
+```
+
+**Why This Might Work:** The reminder gets included in the post-compaction context, triggering active re-engagement with rules rather than relying on "memory."
+
+**If Testing Succeeds:** Add to `docs/BOOTSTRAP.md` as recommended configuration.
+
+**Reference:** `docs/LESSONS-LEARNED.md` - "Post-Compaction Compliance Drift"
+
+---
+
 ### [Category 1]
 - [Consideration 1]
 - [Consideration 2]
