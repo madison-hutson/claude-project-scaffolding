@@ -36,6 +36,7 @@ Documentation has different rules than code:
 | `BOOTSTRAP.md` | > 300 lines | Split by language/framework (`docs/bootstrap/*.md`) |
 | `DEV_ENVIRONMENT.md` | > 300 lines | Split by server/service (`docs/env/*.md`) |
 | `TROUBLESHOOTING.md` | Never split | Single searchable list is the point; grows over time |
+| `GLOSSARY.md` | Never split | Single reference for terminology |
 | `INTEGRATIONS.md` | > 400 lines | Split by integration (`docs/integrations/*.md`) |
 | `USER_GUIDE.md` | > 500 lines | Split into chapters (`docs/guide/*.md`) |
 | `ADMIN_GUIDE.md` | > 400 lines | Split into chapters (`docs/admin/*.md`) |

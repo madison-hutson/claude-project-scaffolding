@@ -154,3 +154,4 @@ npm test
 | `docs/CHANGELOG.md` | Version history | Session start |
 | `docs/TASKS.md` | Current work tracking | Session start, after completing work |
 | `docs/ROADMAP.md` | Planned features | When prioritizing work |
+| `docs/GLOSSARY.md` | Terminology definitions | When unfamiliar terms appear |
