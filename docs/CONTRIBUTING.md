@@ -253,11 +253,28 @@ Co-Authored-By: Claude <noreply@anthropic.com>
 - [ ] No secrets in code (check `.env`, credentials)
 
 **Documentation (check BEFORE every commit):**
+
+*Core (check every time):*
 - [ ] `docs/CHANGELOG.md` - Updated if user-facing change
 - [ ] `docs/TASKS.md` - Mark complete, add new tasks discovered
-- [ ] `docs/LESSONS-LEARNED.md` - Updated if you learned something worth preserving
-- [ ] `docs/ARCHITECTURE.md` - Updated if structure changed
+
+*User-facing (if feature affects users):*
+- [ ] `docs/USER_GUIDE.md` - Updated if user-facing feature or behavior change
+- [ ] `docs/ADMIN_GUIDE.md` - Updated if deployment, config, or setup changes
+
+*Technical (if internals changed):*
+- [ ] `docs/ARCHITECTURE.md` - Updated if structure, data flow, or API changed
+- [ ] `docs/DEV_ENVIRONMENT.md` - Updated if servers, ports, or startup order changed
+- [ ] `docs/INTEGRATIONS.md` - Updated if external API integration changed
+- [ ] `docs/DECISIONS.md` - Updated if you made an architectural decision
 - [ ] Inventory files - Updated if endpoints/components added/removed
+
+*Learning (if applicable):*
+- [ ] `docs/LESSONS-LEARNED.md` - Updated if you learned something worth preserving
+- [ ] `docs/TROUBLESHOOTING.md` - Updated if you encountered and resolved a new issue
+
+*Planning (if scope changed):*
+- [ ] `docs/ROADMAP.md` - Mark completed items, add newly discovered work
 
 ## Shared Patterns
 

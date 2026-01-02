@@ -16,7 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Health check guidance:** Functional checks vs health checks distinction in DEV_ENVIRONMENT.md
 
 ### Changed
-<!-- List changes to existing functionality -->
+- **Before Committing Checklist:** Expanded to include all documentation files, organized by category (core, user-facing, technical, learning, planning)
 
 ### Fixed
 <!-- List bug fixes -->
