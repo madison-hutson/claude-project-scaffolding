@@ -22,8 +22,14 @@ What broke? How was it discovered?
 What should be done differently next time?
 
 ### Status
-Current state (FIXED, REVERTED, WORKAROUND, etc.)
+Current state:
+- **FIXED** - Root cause identified and resolved
+- **REVERTED** - Changes rolled back
+- **WORKAROUND** - Issue bypassed, root cause unknown/unresolved
+- **GUIDANCE ADDED** - Documentation updated to prevent recurrence
 ```
+
+**Note:** "WORKAROUND - Root cause unknown" is a valid status. Document what symptoms you saw and what eventually worked—patterns may emerge over time.
 
 ---
 
@@ -288,6 +294,50 @@ Session 5: Implement golden promotion → commit + CHANGELOG
 
 ### Status
 **RULE ADDED** - Rule 12: Checkpoint before new features. Suggest commit if human doesn't.
+
+---
+
+## 2026-01-02: Debugging Without Root Cause Analysis
+
+### What Happened
+OCR service returned 500 errors. Spent 25+ minutes in a debugging loop without identifying root cause.
+
+### What Went Wrong
+1. **No baseline established** - Never asked "when did this last work?"
+2. **No change analysis** - Never asked "what changed since then?"
+3. **Iterative without hypothesis** - Loop of: restart → test → fail → add logging → restart → test → fail
+4. **Assumed code was broken** - Didn't consider environment state as the cause
+5. **No isolation** - Never tried reproducing in a clean state
+
+### The Anti-Pattern
+```
+restart server → test → 500 error → add logging → restart →
+test → 500 error → add more logging → restart → test →
+500 error → try file logging → restart → give up → revert everything
+```
+
+25 minutes of iteration with zero progress toward root cause.
+
+### Impact
+- Entire session spent debugging, nothing shipped
+- All changes reverted (wasted work)
+- Same issue likely to recur without understanding why
+
+### Prevention
+Before ANY iterative debugging, answer:
+
+| Question | Purpose |
+|----------|---------|
+| When did this last work? | Establish baseline |
+| What changed since then? | Narrow the search |
+| Can I reproduce in isolation? | Confirm it's real |
+
+If you can't answer these: **stop debugging**. Revert to known-good state, apply changes incrementally.
+
+See: `docs/TROUBLESHOOTING.md#before-you-debug-read-this-first`
+
+### Status
+**GUIDANCE ADDED** - Created `docs/TROUBLESHOOTING.md` with debugging methodology as the opening requirement.
 
 ---
 

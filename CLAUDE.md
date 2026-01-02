@@ -55,7 +55,7 @@ When instructions conflict, higher authority wins:
 
 | Situation | Required Response |
 |-----------|-------------------|
-| Tests fail | Diagnose root cause before changing any code |
+| Tests fail | Diagnose root cause before changing any code (see `docs/TROUBLESHOOTING.md`) |
 | Inventory drift | Update inventory file, never delete the test |
 | File exceeds 300 lines | Split with architectural improvement, document tech debt if workaround |
 | Pre-commit hook fails | Fix the issue, never bypass with `--no-verify` |
@@ -137,6 +137,8 @@ npm test
 |------|---------|--------------|
 | `docs/BOOTSTRAP.md` | First-session setup guide | New projects only |
 | `docs/MIGRATION.md` | Apply scaffold to existing project | Existing projects only |
+| `docs/DEV_ENVIRONMENT.md` | Servers, ports, startup order, health checks | Session start, environment issues |
+| `docs/TROUBLESHOOTING.md` | Debugging methodology + known issues | Before debugging anything |
 | `docs/ARCHITECTURE.md` | Project structure, data flow, API endpoints | Session start, before structural changes |
 | `docs/DECISIONS.md` | Why we chose X over Y (decision records) | Before proposing architectural changes |
 | `docs/CONTRIBUTING.md` | Code standards, file limits, testing, patterns | Before writing code |
