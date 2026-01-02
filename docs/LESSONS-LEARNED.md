@@ -341,4 +341,46 @@ See: `docs/TROUBLESHOOTING.md#before-you-debug-read-this-first`
 
 ---
 
+## 2026-01-02: Checkpoint Means Git Commit, Not Task Update
+
+### What Happened
+Multiple features completed with TASKS.md updated, but no git commits. Work was at risk of loss.
+
+### What Went Wrong
+1. **Ambiguous rule** - Rule 12 said "CHECKPOINT before new features" but didn't specify what checkpoint meant
+2. **Misinterpretation** - Claude interpreted "checkpoint" as "update task tracking"
+3. **Intent mismatch** - Human meant "actually commit to git"
+
+### Impact
+- Session had significant changes with no commits
+- If session died or needed rollback, work would be lost
+- No clear rollback points between features
+
+### Prevention
+Rule 12 updated from:
+```
+CHECKPOINT before new features - commit current work
+```
+
+To:
+```
+CHECKPOINT = `git commit` (not just TASKS.md) - commit before starting new features
+```
+
+The explicit `= git commit` removes ambiguity.
+
+### The Meta-Pattern
+This is the methodology self-correcting:
+1. Gap observed in practice
+2. Root cause identified (ambiguous wording)
+3. Rule clarified immediately
+4. LESSONS-LEARNED documents why the rule has specific wording
+
+Future readers (or anyone forking the scaffolding) now understand the intent.
+
+### Status
+**FIXED** - Rule 12 clarified in CLAUDE.md
+
+---
+
 <!-- Add new entries below this line -->
