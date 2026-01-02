@@ -417,4 +417,47 @@ AI constraint systems need:
 
 ---
 
+## 2026-01-02: Post-Compaction Compliance Drift
+
+### What Happened
+After context compaction, Claude updated CHANGELOG.md but missed USER_GUIDE.md and TASKS.md updates. Partial compliance despite rules existing.
+
+### The Pattern
+```
+Compaction happens
+    ↓
+Claude re-reads CODE files (App.tsx, hooks, etc.)
+    ↓
+Claude does NOT re-read CLAUDE.md or CONTRIBUTING.md
+    ↓
+"Obvious" docs get updated (CHANGELOG)
+    ↓
+Checklist items get missed (USER_GUIDE, TASKS.md)
+```
+
+### Why It Happened
+1. **Assumption didn't hold** - Scaffolding assumed CLAUDE.md always in context
+2. **Compaction drops governance files** - Only code files being worked on were re-read
+3. **"Muscle memory" carried forward** - Claude remembered to update *some* docs but forgot the full checklist
+
+### The Root Cause
+Claude self-diagnosed:
+> "Honestly - context restoration after compaction. I focused on completing the mechanical fix and hit the 'obvious' documentation (CHANGELOG) but didn't re-read CONTRIBUTING.md to check the full checklist."
+
+### Prevention
+Rules 1 and 2 updated to explicitly trigger on compaction:
+- Rule 1: "READ docs/ files at session start **AND after compaction**"
+- Rule 2: "RE-READ this file when: **after compaction**, conversation is long..."
+
+### The Limitation
+This fix has a chicken-and-egg problem: if CLAUDE.md isn't in context after compaction, Claude won't see the rule telling it to re-read CLAUDE.md. Mitigation:
+- Keep CLAUDE.md as short as possible (more likely to survive compaction)
+- Hope the compaction summary preserves the instruction
+- External enforcement (hooks) not possible for this failure mode
+
+### Status
+**GUIDANCE ADDED** - Rules 1 and 2 now explicitly mention compaction as a trigger.
+
+---
+
 <!-- Add new entries below this line -->

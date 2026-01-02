@@ -17,8 +17,8 @@ Return here after bootstrap is complete.
 ### Context Management
 | # | Rule | Reference |
 |---|------|-----------|
-| 1 | **READ** docs/ files at session start | `docs/ARCHITECTURE.md`, `docs/CONTRIBUTING.md` |
-| 2 | **RE-READ** this file when: conversation is long, you're uncertain, or before any refactor | - |
+| 1 | **READ** docs/ files at session start AND after compaction | `docs/ARCHITECTURE.md`, `docs/CONTRIBUTING.md` |
+| 2 | **RE-READ** this file when: after compaction, conversation is long, you're uncertain, or before any refactor | - |
 | 3 | **RECALL** relevant docs before specialized tasks (testing, integrations, migrations) | See rule references below |
 
 ### Never Break Production
@@ -41,7 +41,7 @@ Return here after bootstrap is complete.
 ### Governance
 | # | Rule | Reference |
 |---|------|-----------|
-| 13 | **PROTECTED FILE** - CLAUDE.md changes require human approval (enforced by pre-commit hook) | `docs/LESSONS-LEARNED.md` |
+| 13 | **PROTECTED FILE** - CLAUDE.md changes require human approval. Show diff + provide `git commit --no-verify` command for user to run manually. Never run --no-verify yourself. | `docs/LESSONS-LEARNED.md` |
 
 ---
 
