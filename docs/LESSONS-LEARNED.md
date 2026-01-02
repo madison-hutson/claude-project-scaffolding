@@ -491,8 +491,22 @@ Hook timing matters:
 - `PreCompact` = fires before compaction (content will be lost)
 - `SessionStart` with `matcher: "compact"` = fires after compaction (content will be seen)
 
+### Post-Compaction Enforcement: Accepted Limitation
+
+Hooks cannot reliably inject reminders post-compaction because:
+- PreCompact fires before (output gets compacted away)
+- SessionStart stdout isn't visible to Claude
+- File-based reminders require Claude to know to read them (chicken-and-egg)
+
+**Reliable backstops that DO work:**
+1. Todo list persistence (Claude reads it post-compaction)
+2. Pre-commit hooks (external enforcement)
+3. Human prompting when drift is noticed
+
+This is a known gap. Perfect governance would require Anthropic adding a visible post-compaction message feature.
+
 ### Status
-**FIXED** - Hook updated to use SessionStart with compact matcher.
+**ACCEPTED LIMITATION** - SessionStart hook attempted but stdout not visible. Relying on todo persistence and pre-commit hooks instead.
 
 ---
 
