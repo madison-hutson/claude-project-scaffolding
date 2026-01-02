@@ -460,4 +460,40 @@ This fix has a chicken-and-egg problem: if CLAUDE.md isn't in context after comp
 
 ---
 
+## 2026-01-02: PreCompact Hook Doesn't Work for Post-Compaction Reminders
+
+### What Happened
+Added PreCompact hook to inject governance reminder. Hook fired but reminder was compacted away with everything else.
+
+### Root Cause
+PreCompact fires BEFORE compaction (context still full). The reminder becomes part of the content that gets summarized/dropped - defeating the purpose.
+
+### The Fix
+Use `SessionStart` with `matcher: "compact"` instead. This fires AFTER compaction completes, when the reminder will actually be seen in the fresh context.
+
+### Correct Hook Syntax
+```json
+{
+  "hooks": {
+    "SessionStart": [{
+      "matcher": "compact",
+      "hooks": [{
+        "type": "command",
+        "command": "echo 'IMPORTANT: After compaction, re-read CLAUDE.md and docs/CONTRIBUTING.md before continuing work.'"
+      }]
+    }]
+  }
+}
+```
+
+### Key Insight
+Hook timing matters:
+- `PreCompact` = fires before compaction (content will be lost)
+- `SessionStart` with `matcher: "compact"` = fires after compaction (content will be seen)
+
+### Status
+**FIXED** - Hook updated to use SessionStart with compact matcher.
+
+---
+
 <!-- Add new entries below this line -->

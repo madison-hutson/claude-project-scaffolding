@@ -86,19 +86,19 @@ Updated regularly based on user feedback and business requirements.
 
 ## Future Considerations
 
-### PreCompact Hook for Post-Compaction Compliance (EXPERIMENTAL)
+### SessionStart Hook for Post-Compaction Compliance (TESTED)
 
-**Status:** Under testing in separate project
+**Status:** Tested - correct syntax identified
 
 **Problem:** After context compaction, Claude re-reads code files but may not actively re-engage with governance rules. Facts survive compaction but behavioral discipline may drift.
 
-**Proposed Solution:** PreCompact hook that injects a reminder into the compaction process:
+**Solution:** SessionStart hook with `matcher: "compact"` that fires AFTER compaction:
 
 ```json
 {
   "hooks": {
-    "PreCompact": [{
-      "matcher": "auto",
+    "SessionStart": [{
+      "matcher": "compact",
       "hooks": [{
         "type": "command",
         "command": "echo 'IMPORTANT: After compaction, re-read CLAUDE.md and docs/CONTRIBUTING.md before continuing work.'"
@@ -108,11 +108,11 @@ Updated regularly based on user feedback and business requirements.
 }
 ```
 
-**Why This Might Work:** The reminder gets included in the post-compaction context, triggering active re-engagement with rules rather than relying on "memory."
+**Why PreCompact Didn't Work:** PreCompact fires BEFORE compaction, so the reminder gets compacted away with everything else. SessionStart with `matcher: "compact"` fires AFTER compaction, when the reminder will actually be seen.
 
-**If Testing Succeeds:** Add to `docs/BOOTSTRAP.md` as recommended configuration.
+**Next Steps:** Add to `docs/BOOTSTRAP.md` as recommended configuration.
 
-**Reference:** `docs/LESSONS-LEARNED.md` - "Post-Compaction Compliance Drift"
+**Reference:** `docs/LESSONS-LEARNED.md` - "PreCompact Hook Doesn't Work for Post-Compaction Reminders"
 
 ---
 
