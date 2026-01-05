@@ -241,6 +241,32 @@ kill -9 <pid>
 
 ---
 
+### API Property "Doesn't Exist" (But Actually Does)
+
+**Symptom:** API returns `"Property 'Foo' doesn't exist on Entity"` but you expected it to work
+
+**Cause:** APIs often use inconsistent casing. Common patterns:
+- `InActive` instead of `Inactive`
+- `JobNum` instead of `JobNumber`
+- `CustID` instead of `CustomerID` or `customerId`
+
+**Fix:**
+1. Check the actual schema: `GET /odata/v2/EntityName/$metadata`
+2. Try common variations: `Inactive`, `InActive`, `inactive`, `INACTIVE`
+3. Look at working queries that use similar properties
+4. Check API documentation for exact property names
+
+**Prevention:**
+- Use prediction protocol before assuming "doesn't exist":
+  ```
+  DOING: Remove filter because API says property doesn't exist
+  EXPECT: Query works without filter
+  IF NO: Property might be named differently - check casing variations
+  ```
+- Hypothesis first: "Could it be named differently?" before "It doesn't exist"
+
+---
+
 <!-- Add new issues above this line -->
 
 ## When to Escalate

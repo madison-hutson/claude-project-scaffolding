@@ -1,5 +1,63 @@
 # Contributing Guidelines
 
+## Before Writing New Code
+
+**Search before you write. Extend before you create.**
+
+### The Anti-Pattern
+```
+Need pan/zoom for canvas → write 66 lines of interaction logic
+→ user asks "doesn't this already exist in the Bubbling module?"
+→ yes it does → delete and refactor
+```
+
+### The Pattern
+```
+Need pan/zoom for canvas → search for existing implementations
+→ find useCanvasInteraction hook → extend or compose it
+→ 10 lines instead of 66
+```
+
+### Search Checklist
+
+Before writing new code for common patterns, search first:
+
+| Pattern | Search For |
+|---------|------------|
+| Canvas interaction | `useCanvasInteraction`, `DrawingCanvas`, `pan`, `zoom` |
+| Form handling | `useForm`, `FormProvider`, `validation` |
+| Data fetching | `useQuery`, `useFetch`, `api/` directory |
+| Modal/Dialog | `Modal`, `Dialog`, `useModal` |
+| Table/List | `DataTable`, `ListView`, `useTable` |
+| Auth/Permissions | `useAuth`, `PermissionGuard`, `requiresAuth` |
+
+### General Search Strategy
+
+```bash
+# 1. Search for concept keywords
+grep -r "pan\|zoom\|interaction" src/
+
+# 2. Check hooks directory
+ls -la src/hooks/
+
+# 3. Check components directory for similar patterns
+ls -la src/components/canvas/
+
+# 4. Search for similar imports in existing files
+grep -r "from.*canvas" src/
+```
+
+### Why This Matters
+
+1. **Chesterton's Fence** - Understand what exists before building new
+2. **Consistency** - Existing patterns are already tested and reviewed
+3. **File size** - New code adds lines; extending existing code often doesn't
+4. **DRY** - Duplication creates maintenance burden
+
+> If you're about to write 30+ lines of interaction/UI logic, **stop and search first**.
+
+---
+
 ## File Limits
 
 ### Hard Limit: 300 Lines
@@ -7,6 +65,31 @@
 - Start planning splits at 250 lines
 - Check line count DURING development, not after
 - This applies to ALL languages (TypeScript, Python, Rust, Go, etc.)
+
+### Estimate Before Adding
+
+Before adding significant code (30+ lines):
+
+```bash
+# Check current line count
+wc -l src/components/TargetFile.tsx
+# Output: 265 src/components/TargetFile.tsx
+
+# You're about to add ~50 lines → 315 lines (over limit!)
+# Either: split first, or add to different file
+```
+
+**The anti-pattern:**
+```
+Add feature → realize file is now 331 lines → extract component
+```
+
+**The pattern:**
+```
+Check lines → 265 → adding ~50 lines will exceed → split first → add feature
+```
+
+This prevents reactive extractions that create worse architecture than proactive planning.
 
 ### Ideal Sizes
 | Type | Target | Max |
@@ -32,7 +115,7 @@ Documentation has different rules than code:
 | `CLAUDE.md` | **Never split** | Keep extremely short; only strict rules belong here |
 | `ARCHITECTURE.md` | > 400 lines | Split into overview + topic files (`docs/arch/*.md`) |
 | `DECISIONS.md` | > 500 lines | Archive old decisions to `docs/decisions-archive/` |
-| `CONTRIBUTING.md` | > 400 lines | Split into overview + detailed guides |
+| `CONTRIBUTING.md` | 500 lines (strict) | Split into overview + detailed guides |
 | `BOOTSTRAP.md` | > 300 lines | Split by language/framework (`docs/bootstrap/*.md`) |
 | `DEV_ENVIRONMENT.md` | > 300 lines | Split by server/service (`docs/env/*.md`) |
 | `TROUBLESHOOTING.md` | Never split | Single searchable list is the point; grows over time |

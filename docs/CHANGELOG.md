@@ -17,6 +17,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Rule 13 (Governance):** CLAUDE.md is now a protected file requiring human approval
 - **Pre-commit hook:** Blocks CLAUDE.md changes, requires `--no-verify` after human review
 - **Glossary:** `docs/GLOSSARY.md` with terminology definitions (session, burst, context, checkpoint, etc.)
+- **Before Writing New Code:** Search-first checklist in CONTRIBUTING.md with common patterns to look for
+- **API Property Troubleshooting:** Known issue entry for "property doesn't exist" casing problems
+- **Estimate Before Adding:** Line count estimation guidance before adding significant code
 
 ### Changed
 - **Before Committing Checklist:** Expanded to include all documentation files, organized by category (core, user-facing, technical, learning, planning)
@@ -25,6 +28,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Staging Discipline:** "git add . is forbidden" formalized in CONTRIBUTING.md
 - **Batch Size:** "3 actions, then checkpoint" - more aggressive verification cadence
 - **Completion Bias Warning:** Added to CLAUDE.md preamble
+
+### Documented
+- **Completion Bias Patterns:** LESSONS-LEARNED entry documenting three failure modes - skipped prediction protocol, code duplication before reuse check, reactive file splits
 
 ### Fixed
 <!-- List bug fixes -->

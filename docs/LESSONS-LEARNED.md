@@ -510,4 +510,75 @@ This is a known gap. Perfect governance would require Anthropic adding a visible
 
 ---
 
+## 2026-01-05: Completion Bias - Three Patterns
+
+### What Happened
+Session had multiple instances of rushing to implement rather than investigating first.
+
+### What Went Wrong
+
+**1. Prediction Protocol Skipped for API Error**
+```
+API returned: "Inactive property doesn't exist on Erp.Inspector"
+Claude's fix: Remove the Inactive filter entirely
+```
+
+Should have used prediction protocol:
+```
+DOING: Removing Inactive filter because API says property doesn't exist
+EXPECT: Query will work without the filter
+IF NO: Property might be named differently (Epicor uses unusual casing)
+
+Better approach:
+DOING: Check if property is named differently (InActive vs Inactive)
+EXPECT: Epicor often uses camelCase with capitals mid-word
+```
+
+User had to prompt: "Is it maybe InActive instead of Inactive?" Claude should have hypothesized this.
+
+**2. Duplicated Code Before Checking for Existing Implementation**
+Added 66 lines of pan/zoom canvas logic. User caught it:
+> "Shouldn't some of this already exist within the structure in the Bubbling module?"
+
+Should have searched first for:
+- `useCanvasInteraction` - existing pan/zoom hooks
+- `DrawingCanvas` - existing canvas components
+- Similar patterns in `components/canvas/` or `hooks/`
+
+**3. File Length Violation Created, Then Caught**
+DrawingPreview.tsx → 331 lines (over 300 limit) after adding 66 lines.
+Claude caught via `wc -l` and extracted FeatureTable.tsx. Good recovery, but:
+- Should have estimated line count before adding 66 lines
+- After adding significant code, verify before continuing
+
+### The Meta-Pattern
+All three are "completion bias":
+> "You optimize for completion. This drives you to batch—do many things, report success."
+
+- Writing new code instead of searching for existing
+- Assuming property doesn't exist instead of investigating naming
+- Adding code without estimating impact on file length
+
+### Prevention
+
+**For API errors:**
+1. Use prediction protocol before removing/changing API behavior
+2. Hypothesize alternative causes (naming conventions, casing, typos)
+3. Check docs or try variations before assuming "doesn't exist"
+
+**For new interaction/UI code:**
+1. Search for existing implementations first (see CONTRIBUTING.md)
+2. "Chesterton's Fence" - understand what exists before building new
+3. Extend or compose existing code, don't duplicate
+
+**For file modifications:**
+1. Estimate line impact before adding significant code
+2. Check `wc -l` on target file before and after
+3. Batch size discipline: verify after adding substantial code
+
+### Status
+**GUIDANCE ADDED** - Added "Before Writing New Code" section to CONTRIBUTING.md with search-first checklist.
+
+---
+
 <!-- Add new entries below this line -->
