@@ -267,6 +267,20 @@ kill -9 <pid>
 
 ---
 
+### When Multiple Fixes Fail
+
+If you've tried 2+ fixes and the problem persists:
+
+1. STOP making changes
+2. Run `git diff HEAD` to see all your modifications
+3. Consider `git checkout HEAD -- <file>` to revert
+4. Re-read the original error message
+5. Ask: "Am I fixing the right thing?"
+
+The fastest path forward is often reverting to known-good state.
+
+---
+
 <!-- Add new issues above this line -->
 
 ## When to Escalate

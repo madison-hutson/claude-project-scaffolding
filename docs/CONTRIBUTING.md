@@ -316,6 +316,17 @@ Claude doesn't manage session scope. It will keep implementing until something b
 
 **The rule:** One logical change = one commit. Don't stack uncommitted changes across unrelated features.
 
+### Chesterton's Fence for Working Code
+
+Before modifying code that "should work":
+1. **Verify it's actually broken** — test it, don't assume
+2. **Check git history** — `git log -3 <file>` to see recent changes
+3. **Understand current implementation** — read the code, don't skim
+4. **One change, one test** — if it doesn't fix, REVERT immediately
+5. **Three failed attempts = STOP** — ask for help, don't keep trying
+
+**Revert command:** `git checkout HEAD -- <file>`
+
 ---
 
 ## Git Workflow

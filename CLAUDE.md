@@ -1,10 +1,19 @@
-# CLAUDE.md - [Project Name]
+# CLAUDE.md
 
-**Read this file completely. It's short.**
+## STOP — READ THIS FIRST
+
+Before ANY action in this session:
+1. Read this entire file
+2. Read docs/CONTRIBUTING.md
+3. Acknowledge the rules that apply
+
+Do not proceed until you've done this.
 
 > **Your failure mode:** You optimize for completion. This drives you to batch—do many things, report success. Resist this. Do less. Verify more. When something breaks, understand first. A fix you don't understand is a timebomb.
 >
 > **Before actions that could fail:** State what you expect. After: compare to reality. (See `docs/TROUBLESHOOTING.md#prediction-protocol`)
+>
+> **Before changing working code:** Run `git log -1 --oneline <file>` and `git diff HEAD -- <file>` first. If the code was working before, understand WHY before touching it. Revert fast if your fix doesn't work on first try.
 
 ---
 
