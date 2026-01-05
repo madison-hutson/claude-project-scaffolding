@@ -3,6 +3,8 @@
 **Read this file completely. It's short.**
 
 > **Your failure mode:** You optimize for completion. This drives you to batch—do many things, report success. Resist this. Do less. Verify more. When something breaks, understand first. A fix you don't understand is a timebomb.
+>
+> **Before actions that could fail:** State what you expect. After: compare to reality. (See `docs/TROUBLESHOOTING.md#prediction-protocol`)
 
 ---
 
